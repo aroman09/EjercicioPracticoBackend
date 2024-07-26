@@ -1,0 +1,66 @@
+version: '3.8'
+services:
+  mysql1:
+    image: mysql:8.0
+    container_name: mysql1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cliente_persona
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql1-data:/var/lib/mysql
+
+  mysql2:
+    image: mysql:8.0
+    container_name: mysql2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cuenta_movimientos
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql2-data:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672" # Management console
+
+  microservicio-cliente-persona:
+    build:
+      context: ./microservicio-cliente-persona
+      dockerfile: Dockerfile
+    container_name: microservicio-cliente-persona
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql1:3306/cliente_persona
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - mysql1
+      - rabbitmq
+
+  microservicio-cuenta-movimientos:
+    build:
+      context: ./microservicio-cuenta-movimientos
+      dockerfile: Dockerfile
+    container_name: microservicio-cuenta-movimientos
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql2:3306/cuenta_movimientos
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - mysql2
+      - rabbitmq
+
+volumes:
+  mysql1-data:
+  mysql2-data:
