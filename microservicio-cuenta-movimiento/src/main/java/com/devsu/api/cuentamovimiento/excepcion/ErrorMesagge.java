@@ -18,6 +18,7 @@ public enum ErrorMesagge {
     BAD_PATH("999","Opcion no permitida"),
     EXCEPTION("999","Error al procesar solicitud"),
     JSON_FORMAT("999","Formato Json incorrecto"),
+    CLIENT_NOT_FOUND("980","Error al recuperar el cliente"),
     PARAMETER_FORMAT("999","Error en el tipo de parametro ingresado");
 
     public String codError;

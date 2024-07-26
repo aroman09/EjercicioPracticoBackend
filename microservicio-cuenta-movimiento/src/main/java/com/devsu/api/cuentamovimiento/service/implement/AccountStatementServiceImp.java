@@ -3,6 +3,8 @@ package com.devsu.api.cuentamovimiento.service.implement;
 import com.devsu.api.cuentamovimiento.excepcion.Error;
 import com.devsu.api.cuentamovimiento.model.dto.*;
 import com.devsu.api.cuentamovimiento.service.AccountStatementService;
+import com.devsu.api.cuentamovimiento.service.RabbitMQ.ClienteRequestProducerService;
+import com.devsu.api.cuentamovimiento.service.RabbitMQ.ClienteResponseConsumerService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -26,13 +29,27 @@ public class AccountStatementServiceImp implements AccountStatementService {
     @Autowired
     TransactionServiceImp transactionServiceImp;
 
+    private ClienteRequestProducerService clienteRequestService;
+    private ClienteResponseConsumerService clienteResponse;
+
 
     @Override
     public AccountStatementDto retrieveAccountStatement(LocalDate startDate, LocalDate endDate, String idClient) {
         if (startDate.isAfter(endDate))
             throw new Error("990");
+        clienteRequestService.obtenerClientePorIdentificacion(idClient);
         List<AccountDto> listaCuentas = accountServiceImp.listAccountByClient(idClient);
         List<AccountTransactionDto> movimientos_cuenta = new ArrayList<>();
+        CompletableFuture<ClientDto> clienteDTOFuture;
+        AccountStatementDto accountStatementDto= new AccountStatementDto();
+        try {
+            clienteDTOFuture = clienteResponse.obtenerClienteDTO();
+            accountStatementDto.setCliente(clienteDTOFuture.get());
+        }catch (Exception ex)
+        {
+            throw new Error("980");
+        }
+
         listaCuentas.stream()
                 .forEach(cuenta -> {
                     AccountTransactionDto accountTransactionDto= new AccountTransactionDto();
@@ -41,7 +58,8 @@ public class AccountStatementServiceImp implements AccountStatementService {
                             transactionServiceImp.listallTransactionByDate(startDate,endDate,cuenta.getNumeroCuenta()));
                     movimientos_cuenta.add(accountTransactionDto);
                 });
-        return new AccountStatementDto(new ClientDto("ariana"),movimientos_cuenta);
+        accountStatementDto.setCuentas(movimientos_cuenta);
+        return accountStatementDto;
     }
 
     public byte[] generatePdf(LocalDate startDate, LocalDate endDate, String idClient) {

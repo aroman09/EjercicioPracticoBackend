@@ -8,8 +8,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
-@Configuration
+@Service
 @Slf4j
 public class ClienteResponseProducerService {
     @Value("${spring.rabbitmq.response.exchange}")
@@ -26,9 +27,8 @@ public class ClienteResponseProducerService {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void responseCliente(Client cliente) {
-        ClientDto clienteDTO = clientMapper.clientToClientDTO(cliente);
-        log.info(String.format("Cliente enviado %s", clienteDTO));
-        rabbitTemplate.convertAndSend(exchange, routingKey, cliente);
+    public void responseCliente(ClientDto clienteDto) {
+        log.info(String.format("Cliente enviado %s", clienteDto));
+        rabbitTemplate.convertAndSend(exchange, routingKey, clienteDto);
     }
 }

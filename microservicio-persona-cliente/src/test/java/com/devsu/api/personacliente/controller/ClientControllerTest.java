@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +28,6 @@ class ClientControllerTest {
     @Test
     void create() throws Exception {
         String clienteJson = "{\"id\":1,\"nombre\":\"Pablo\",\"genero\":\"Masculino\",\"edad\":25, \"identificacion\":\"1100908789\",\"direccion\":\"Loja\", \"telefono\":\"05789\", \"password\":\"12345\",\"clientId\":\"pablo123\",\"estado\":true}";
-
         mockMvc.perform(post("http://localhost:8083/api/clientes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(clienteJson))

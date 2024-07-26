@@ -32,6 +32,14 @@ public class ExcepcionHandler {
                         ErrorMesagge.STARTDATE_MAJOR.msjError
                 );
                 return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+            case ("980"):
+                errorResponse = new ErrorResponse(
+                        LocalDateTime.now(),
+                        request.getDescription(false),
+                        ErrorMesagge.CLIENT_NOT_FOUND.codError,
+                        ErrorMesagge.STARTDATE_MAJOR.msjError
+                );
+                return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
             case ("991"):
                 errorResponse = new ErrorResponse(
                         LocalDateTime.now(),
