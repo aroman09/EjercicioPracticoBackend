@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountStatementDto {
-    private ClientDto cliente;
+    private Client cliente;
     private List<AccountTransactionDto> cuentas;
 
 }

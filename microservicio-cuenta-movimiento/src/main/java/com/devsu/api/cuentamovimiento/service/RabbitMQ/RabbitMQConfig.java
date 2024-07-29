@@ -1,4 +1,4 @@
-package com.devsu.api.personacliente.service.RabbitMQ;
+package com.devsu.api.cuentamovimiento.service.RabbitMQ;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
 package com.devsu.api.cuentamovimiento.controller;
 
 import com.devsu.api.cuentamovimiento.model.dto.AccountDto;
-import com.devsu.api.cuentamovimiento.model.dto.AccountStatementDto;
+import com.devsu.api.cuentamovimiento.model.dto.Client;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -39,4 +39,7 @@ public interface AccountController {
                 @RequestParam("fechaInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                 @RequestParam("fechaFin") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
                 @RequestParam("idCliente") String idClient);
+
+        @GetMapping("/cliente/{id}")
+        ResponseEntity<Client> obtenerCliente(@PathVariable String id);
 }

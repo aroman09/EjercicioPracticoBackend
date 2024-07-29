@@ -1,0 +1,41 @@
+29-07-2024 11:37:38 || LINE: 58     - [SpringApplication        ] ||  
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+
+29-07-2024 11:37:38 || LINE: 50     - [ApiCuentaMovimientoApplication] ||  Starting ApiCuentaMovimientoApplication using Java 17.0.10 with PID 4676 (E:\EjercicioPracticoBackend\microservicio-cuenta-movimiento\target\classes started by ba010006h2 in E:\EjercicioPracticoBackend\microservicio-cuenta-movimiento)
+29-07-2024 11:37:38 || LINE: 660    - [ApiCuentaMovimientoApplication] ||  The following 1 profile is active: "dev"
+29-07-2024 11:37:39 || LINE: 143    - [RepositoryConfigurationDelegate] ||  Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+29-07-2024 11:37:39 || LINE: 211    - [RepositoryConfigurationDelegate] ||  Finished Spring Data repository scanning in 120 ms. Found 2 JPA repository interfaces.
+29-07-2024 11:37:41 || LINE: 111    - [TomcatWebServer          ] ||  Tomcat initialized with port 8084 (http)
+29-07-2024 11:37:41 || LINE: 173    - [StandardService          ] ||  Starting service [Tomcat]
+29-07-2024 11:37:41 || LINE: 173    - [StandardEngine           ] ||  Starting Servlet engine: [Apache Tomcat/10.1.26]
+29-07-2024 11:37:41 || LINE: 173    - [[/api]                   ] ||  Initializing Spring embedded WebApplicationContext
+29-07-2024 11:37:41 || LINE: 296    - [ServletWebServerApplicationContext] ||  Root WebApplicationContext: initialization completed in 3132 ms
+29-07-2024 11:37:42 || LINE: 31     - [LogHelper                ] ||  HHH000204: Processing PersistenceUnitInfo [name: default]
+29-07-2024 11:37:42 || LINE: 44     - [Version                  ] ||  HHH000412: Hibernate ORM core version 6.5.2.Final
+29-07-2024 11:37:42 || LINE: 50     - [RegionFactoryInitiator   ] ||  HHH000026: Second-level cache disabled
+29-07-2024 11:37:43 || LINE: 87     - [SpringPersistenceUnitInfo] ||  No LoadTimeWeaver setup: ignoring JPA class transformer
+29-07-2024 11:37:43 || LINE: 109    - [HikariDataSource         ] ||  HikariPool-1 - Starting...
+29-07-2024 11:37:43 || LINE: 554    - [HikariPool               ] ||  HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 1f1fa570-959b-41d3-849a-45fee63dd468
+29-07-2024 11:37:43 || LINE: 122    - [HikariDataSource         ] ||  HikariPool-1 - Start completed.
+29-07-2024 11:37:45 || LINE: 59     - [JtaPlatformInitiator     ] ||  HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+29-07-2024 11:37:46 || LINE: 437    - [LocalContainerEntityManagerFactoryBean] ||  Initialized JPA EntityManagerFactory for persistence unit 'default'
+29-07-2024 11:37:47 || LINE: 49     - [QueryEnhancerFactory     ] ||  Hibernate is in classpath; If applicable, HQL parser will be used.
+29-07-2024 11:37:48 || LINE: 243    - [TomcatWebServer          ] ||  Tomcat started on port 8084 (http) with context path '/api'
+29-07-2024 11:37:48 || LINE: 666    - [CachingConnectionFactory ] ||  Attempting to connect to: [localhost:5672]
+29-07-2024 11:37:48 || LINE: 608    - [CachingConnectionFactory ] ||  Created new connection: rabbitConnectionFactory#6bcfb561:0/SimpleConnection@2eb6e166 [delegate=amqp://guest@127.0.0.1:5672/, localPort=58728]
+29-07-2024 11:37:48 || LINE: 686    - [RabbitAdmin              ] ||  Auto-declaring a non-durable, auto-delete, or exclusive Queue (clienteRequestQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+29-07-2024 11:37:48 || LINE: 686    - [RabbitAdmin              ] ||  Auto-declaring a non-durable, auto-delete, or exclusive Queue (clienteResponseQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+29-07-2024 11:37:48 || LINE: 56     - [ApiCuentaMovimientoApplication] ||  Started ApiCuentaMovimientoApplication in 11.201 seconds (process running for 12.601)
+29-07-2024 11:42:04 || LINE: 686    - [SimpleMessageListenerContainer] ||  Waiting for workers to finish.
+29-07-2024 11:42:04 || LINE: 690    - [SimpleMessageListenerContainer] ||  Successfully waited for workers to finish.
+29-07-2024 11:42:04 || LINE: 650    - [LocalContainerEntityManagerFactoryBean] ||  Closing JPA EntityManagerFactory for persistence unit 'default'
+29-07-2024 11:42:04 || LINE: 349    - [HikariDataSource         ] ||  HikariPool-1 - Shutdown initiated...
+29-07-2024 11:42:04 || LINE: 351    - [HikariDataSource         ] ||  HikariPool-1 - Shutdown completed.

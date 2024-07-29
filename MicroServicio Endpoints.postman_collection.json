@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "36d3f883-2ee4-4ec7-9d4c-00aafd0b0809",
+		"_postman_id": "cbfda9ae-1a58-4729-86cb-71e07cd896b4",
 		"name": "MicroServicio Endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "8618363"
@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"cliente\": 7,\r\n    \"contraseniaCliente\": \"182ab66789\",\r\n    \"estadoCliente\": true,\r\n    \"persona\": {\r\n        \"persona\": 7,\r\n        \"nombreCliente\": \"Julia Roldos\",\r\n        \"generoCliente\": \"F\",\r\n        \"identificacionCliente\": \"1105368889\",\r\n        \"direccionCliente\": \"Calle 2H 586\",\r\n        \"telefonoCliente\": \"555-1274\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"id\":1,\r\n    \"nombre\": \"Julia Luisa Roldos\",\r\n    \"genero\": \"F\",\r\n    \"edad\":25,\r\n    \"identificacion\": \"1105368889\",\r\n    \"direccion\": \"Calle av Loja\",\r\n    \"telefono\": \"555-1274\",\r\n    \"password\": \"022466789\",\r\n    \"clientId\":\"jluro\",\r\n    \"estado\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 0,\r\n    \"fecha\": \"2024-07-02\",\r\n    \"tipoMovimiento\": \"DEPOSITO\",\r\n    \"valor\": -5,\r\n    \"numeroCuenta\":\"123456789\"\r\n}",
+					"raw": "{\r\n    \"id\": 0,\r\n    \"fecha\": \"2024-07-03\",\r\n    \"tipoMovimiento\": \"DEPOSITO\",\r\n    \"valor\": 10,\r\n    \"numeroCuenta\":\"188456789\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,7 +70,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/api/movimientos/cuenta?cuenta=123456789",
+					"raw": "http://localhost:8084/api/movimientos/cuenta?cuenta=188456789",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -84,7 +84,7 @@
 					"query": [
 						{
 							"key": "cuenta",
-							"value": "123456789"
+							"value": "188456789"
 						}
 					]
 				}
@@ -137,7 +137,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/api/reportes?fechaInicio=2024-07-02&fechaFin=2024-07-03&idCliente=1",
+					"raw": "http://localhost:8084/api/reportes?fechaInicio=2024-07-02&fechaFin=2024-07-03&idCliente=jluro",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -158,7 +158,7 @@
 						},
 						{
 							"key": "idCliente",
-							"value": "1"
+							"value": "jluro"
 						}
 					]
 				}
@@ -171,7 +171,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8084/api/reportes/pdf?fechaInicio=2024-07-02&fechaFin=2024-07-03&idCliente=1",
+					"raw": "http://localhost:8084/api/reportes/pdf?fechaInicio=2024-07-02&fechaFin=2024-07-03&idCliente=jluro",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -193,7 +193,7 @@
 						},
 						{
 							"key": "idCliente",
-							"value": "1"
+							"value": "jluro"
 						}
 					]
 				}
@@ -207,7 +207,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"numeroCuenta\": \"123456789\",\r\n    \"tipoCuenta\": \"AHORRO\",\r\n    \"saldoInicial\": 10,\r\n    \"estado\": true,\r\n    \"idCliente\":\"1\"\r\n}",
+					"raw": "{\r\n    \"numeroCuenta\": \"188456789\",\r\n    \"tipoCuenta\": \"CORRIENTE\",\r\n    \"saldoInicial\": 10,\r\n    \"estado\": true,\r\n    \"idCliente\":\"jluro\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -259,35 +259,6 @@
 			"response": []
 		},
 		{
-			"name": "Crear Cliente Copy",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Julia Luisa Roldos\",\r\n    \"genero\": \"F\",\r\n    \"edad\": 25,\r\n    \"identificacion\": \"1105368889\",\r\n    \"direccion\": \"Calle98586\",\r\n    \"telefono\": \"555-1274\",\r\n    \"password\": \"123456789\",\r\n    \"clientId\": \"123\",\r\n    \"estado\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8083/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8083",
-					"path": [
-						"api",
-						"clientes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Recuperar Cliente",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -305,16 +276,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8083/bankapi/clientes/8",
+					"raw": "http://localhost:8083/api/clientes/jluro",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"bankapi",
+						"api",
 						"clientes",
-						"8"
+						"jluro"
 					]
 				}
 			},
@@ -368,7 +339,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8083/api/clientes/10",
+					"raw": "http://localhost:8083/api/clientes/jluro",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -377,7 +348,7 @@
 					"path": [
 						"api",
 						"clientes",
-						"10"
+						"jluro"
 					]
 				}
 			},

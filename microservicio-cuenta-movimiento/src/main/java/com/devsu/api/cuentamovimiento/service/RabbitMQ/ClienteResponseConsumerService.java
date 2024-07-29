@@ -1,29 +1,26 @@
 package com.devsu.api.cuentamovimiento.service.RabbitMQ;
 
-import com.devsu.api.cuentamovimiento.model.dto.ClientDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
 
-@Configuration
 @Slf4j
+@Component
 public class ClienteResponseConsumerService {
-    private CompletableFuture<ClientDto> clienteDTOCompletableFuture = new CompletableFuture<>();
+    private CompletableFuture<String> clienteStrCompletableFuture = new CompletableFuture<>();
 
+    @RabbitListener(queues = RabbitMQConfig.CLIENTE_RESPONSE_QUEUE)
+    public void recibirClienteDTO(String client) {
+        log.info("Cliente recibido {} ",client);
 
-    @RabbitListener(queues = "${spring.rabbitmq.response.queue}")
-    public void recibirClienteDTO(ClientDto clienteDTO) {
-        log.info(String.format("Cliente recibido"));
-        log.info("Cliente: {}", clienteDTO);
-
-        clienteDTOCompletableFuture.complete(clienteDTO);
-        clienteDTOCompletableFuture = new CompletableFuture<>();
+        clienteStrCompletableFuture.complete(client);
+        clienteStrCompletableFuture = new CompletableFuture<>();
     }
 
-    public CompletableFuture<ClientDto> obtenerClienteDTO() {
-        return clienteDTOCompletableFuture;
-    }
 
+   public CompletableFuture<String> obtenerClienteStr() {
+        return clienteStrCompletableFuture;
+    }
 }

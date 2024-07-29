@@ -1,7 +1,8 @@
 package com.devsu.api.cuentamovimiento.service.implement;
 
-import com.devsu.api.cuentamovimiento.excepcion.Error;
 import com.devsu.api.cuentamovimiento.model.dto.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.devsu.api.cuentamovimiento.excepcion.Error;
 import com.devsu.api.cuentamovimiento.service.AccountStatementService;
 import com.devsu.api.cuentamovimiento.service.RabbitMQ.ClienteRequestProducerService;
 import com.devsu.api.cuentamovimiento.service.RabbitMQ.ClienteResponseConsumerService;
@@ -28,38 +29,49 @@ public class AccountStatementServiceImp implements AccountStatementService {
     AccountServiceImp accountServiceImp;
     @Autowired
     TransactionServiceImp transactionServiceImp;
-
-    private ClienteRequestProducerService clienteRequestService;
-    private ClienteResponseConsumerService clienteResponse;
+    @Autowired
+    ClienteRequestProducerService clienteRequestService;
+    @Autowired
+    ClienteResponseConsumerService clienteResponse;
 
 
     @Override
     public AccountStatementDto retrieveAccountStatement(LocalDate startDate, LocalDate endDate, String idClient) {
+        log.info("Fechas para generar reporte: "+startDate+" - "+endDate+" del cliente "+idClient);
         if (startDate.isAfter(endDate))
             throw new Error("990");
-        clienteRequestService.obtenerClientePorIdentificacion(idClient);
         List<AccountDto> listaCuentas = accountServiceImp.listAccountByClient(idClient);
         List<AccountTransactionDto> movimientos_cuenta = new ArrayList<>();
-        CompletableFuture<ClientDto> clienteDTOFuture;
         AccountStatementDto accountStatementDto= new AccountStatementDto();
+        Client cliente;
         try {
-            clienteDTOFuture = clienteResponse.obtenerClienteDTO();
-            accountStatementDto.setCliente(clienteDTOFuture.get());
+            // Enviar solicitud a la cola de solicitudes
+            clienteRequestService.obtenerClientePorIdentificacion(idClient);
+
+            //obtener el cliente desde rabittmq
+            CompletableFuture<String> clienteStrCompletableFuture = clienteResponse.obtenerClienteStr();
+            if (clienteStrCompletableFuture.get().isEmpty()){
+                throw new Error("980");
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            cliente = objectMapper.readValue(clienteStrCompletableFuture.get(), Client.class);
+            log.info("Cliente recuperado "+cliente);
+            System.out.println(cliente);
+            accountStatementDto.setCliente(cliente);
+            listaCuentas.stream()
+                    .forEach(cuenta -> {
+                        AccountTransactionDto accountTransactionDto= new AccountTransactionDto();
+                        accountTransactionDto.setCuenta(cuenta);
+                        accountTransactionDto.setMovimientos(
+                                transactionServiceImp.listallTransactionByDate(startDate,endDate,cuenta.getNumeroCuenta()));
+                        movimientos_cuenta.add(accountTransactionDto);
+                    });
+            accountStatementDto.setCuentas(movimientos_cuenta);
+            return accountStatementDto;
         }catch (Exception ex)
         {
             throw new Error("980");
         }
-
-        listaCuentas.stream()
-                .forEach(cuenta -> {
-                    AccountTransactionDto accountTransactionDto= new AccountTransactionDto();
-                    accountTransactionDto.setCuenta(cuenta);
-                    accountTransactionDto.setMovimientos(
-                            transactionServiceImp.listallTransactionByDate(startDate,endDate,cuenta.getNumeroCuenta()));
-                    movimientos_cuenta.add(accountTransactionDto);
-                });
-        accountStatementDto.setCuentas(movimientos_cuenta);
-        return accountStatementDto;
     }
 
     public byte[] generatePdf(LocalDate startDate, LocalDate endDate, String idClient) {
@@ -73,7 +85,7 @@ public class AccountStatementServiceImp implements AccountStatementService {
             document.add(new Paragraph("ESTADO DE CUENTA"));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             document.add(new Paragraph("Fechas: " + startDate.format(formatter)+" - "+endDate.format(formatter)));
-            document.add(new Paragraph("Cliente: " + accountStatementDto.getCliente().nombre()));
+            document.add(new Paragraph("Cliente: " + accountStatementDto.getCliente().getNombre()));
             PdfPTable table = new PdfPTable(7);
             PdfPCell cell = new PdfPCell(new Phrase("Cuenta"));
             cell.setBackgroundColor(BaseColor.LIGHT_GRAY);

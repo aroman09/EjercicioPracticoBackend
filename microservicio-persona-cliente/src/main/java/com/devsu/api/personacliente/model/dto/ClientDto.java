@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDto implements Serializable {
+public class ClientDto {
     private Long id;
     @NotBlank(message = "El parametro nombre no debe estar en blanco")
     private String nombre;

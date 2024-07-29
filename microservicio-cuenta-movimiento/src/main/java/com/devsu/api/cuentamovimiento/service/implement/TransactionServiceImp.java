@@ -1,13 +1,13 @@
 package com.devsu.api.cuentamovimiento.service.implement;
 
+import com.devsu.api.cuentamovimiento.repository.TransactionRepository;
+import com.devsu.api.cuentamovimiento.service.TransactionService;
 import com.devsu.api.cuentamovimiento.excepcion.Error;
 import com.devsu.api.cuentamovimiento.manageObject.ProcessTransaction;
 import com.devsu.api.cuentamovimiento.model.dto.AccountDto;
 import com.devsu.api.cuentamovimiento.model.dto.TransactionDto;
 import com.devsu.api.cuentamovimiento.model.entity.Account;
 import com.devsu.api.cuentamovimiento.model.entity.Transaction;
-import com.devsu.api.cuentamovimiento.repository.TransactionRepository;
-import com.devsu.api.cuentamovimiento.service.TransactionService;
 import com.devsu.api.cuentamovimiento.util.TransactionType;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -115,7 +115,7 @@ public class TransactionServiceImp implements TransactionService {
         Optional<TransactionDto> transactionDto = retrieveEndTransaction(account.getNumeroCuenta());
         if (!transactionDto.isPresent()){
             transactionDto= Optional.of(new TransactionDto());
-            transactionDto.get().setSaldo(0);
+            transactionDto.get().setSaldo(account.getSaldoInicial());
         }
         transaction.setSaldo(processTransaction.calculeTotal(transactionDto.get().getSaldo(),transaction.getValor()));
         return transaction;

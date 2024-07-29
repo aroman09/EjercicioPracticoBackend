@@ -2,17 +2,13 @@ package com.devsu.api.cuentamovimiento.service.RabbitMQ;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+@Component
 @Service
 @Slf4j
 public class ClienteRequestProducerService {
-    @Value("${spring.rabbitmq.request.exchange}")
-    private String exchange;
-
-    @Value("${spring.rabbitmq.request.routingKey}")
-    private String routingKey;
 
     private RabbitTemplate rabbitTemplate;
 
@@ -20,9 +16,10 @@ public class ClienteRequestProducerService {
         this.rabbitTemplate = rabbitTemplate;
     }
 
+
     public void obtenerClientePorIdentificacion(String identificacion) {
-        log.info("Proceso solicitud cliente");
-        rabbitTemplate.convertAndSend(exchange, routingKey, identificacion);
+        log.info(String.format("Mensage enviado %s", identificacion));
+        rabbitTemplate.convertAndSend(RabbitMQConfig.CLIENTE_REQUEST_QUEUE, identificacion);
         log.info(String.format("Mensage enviado %s", identificacion));
     }
 }

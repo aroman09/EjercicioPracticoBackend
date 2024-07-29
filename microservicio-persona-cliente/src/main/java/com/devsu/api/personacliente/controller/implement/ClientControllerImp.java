@@ -1,8 +1,8 @@
 package com.devsu.api.personacliente.controller.implement;
 
-import com.devsu.api.personacliente.controller.ClientController;
 import com.devsu.api.personacliente.model.dto.ClientDto;
 import com.devsu.api.personacliente.service.ClientService;
+import com.devsu.api.personacliente.controller.ClientController;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
