@@ -50,17 +50,7 @@ public class AccountControllerImp implements AccountController {
 
     @Override
     public ResponseEntity<Client> obtenerCliente(String id) {
-        try {
-            Client cliente = accountService.getClienteById(id);
-            return ResponseEntity.ok(cliente);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        Client cliente = accountService.getClienteById(id);
+        return ResponseEntity.ok(cliente);
     }
 }
