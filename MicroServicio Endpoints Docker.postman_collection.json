@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "4db9e48a-73fa-439c-8491-d4d8f6cebb99",
+		"name": "MicroServicio Endpoints Docker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8618363"
+	},
+	"item": [
+		{
+			"name": "Actualizar Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"nombre\": \"Julia Luisa Roldos\",\r\n    \"genero\": \"F\",\r\n    \"edad\":25,\r\n    \"identificacion\": \"1105368889\",\r\n    \"direccion\": \"Calle av Loja\",\r\n    \"telefono\": \"555-1274\",\r\n    \"password\": \"022466789\",\r\n    \"clientId\":\"jluro\",\r\n    \"estado\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Cliente Patch",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"nombre\": \"Julia Luisa Roldos\",\r\n    \"genero\": \"F\",\r\n    \"edad\":25,\r\n    \"identificacion\": \"1105368889\",\r\n    \"direccion\": \"Calle av Loja\",\r\n    \"telefono\": \"555-1274\",\r\n    \"password\": \"022466789\",\r\n    \"clientId\":\"jluro\",\r\n    \"estado\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Movimiento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 0,\r\n    \"fecha\": \"2024-07-02\",\r\n    \"tipoMovimiento\": \"DEPOSITO\",\r\n    \"valor\": -5,\r\n    \"numeroCuenta\":\"123456789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/api/movimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"movimientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Movimientos Cuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/api/movimientos/cuenta?cuenta=123456789",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"movimientos",
+						"cuenta"
+					],
+					"query": [
+						{
+							"key": "cuenta",
+							"value": "123456789"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Movimientos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/movimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"movimientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Cuentas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reporte Fechas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/api/reportes?fechaInicio=2024-07-02&fechaFin=2024-07-03&idCliente=jluro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"reportes"
+					],
+					"query": [
+						{
+							"key": "fechaInicio",
+							"value": "2024-07-02"
+						},
+						{
+							"key": "fechaFin",
+							"value": "2024-07-03"
+						},
+						{
+							"key": "idCliente",
+							"value": "jluro"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reporte Fechas PDF",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/api/reportes/pdf?fechaInicio=2024-07-02&fechaFin=2024-07-03&idCliente=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"api",
+						"reportes",
+						"pdf"
+					],
+					"query": [
+						{
+							"key": "fechaInicio",
+							"value": "2024-07-02"
+						},
+						{
+							"key": "fechaFin",
+							"value": "2024-07-03"
+						},
+						{
+							"key": "idCliente",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Cuenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numeroCuenta\": \"123456789\",\r\n    \"tipoCuenta\": \"AHORRO\",\r\n    \"saldoInicial\": 10,\r\n    \"estado\": true,\r\n    \"idCliente\":\"jluro\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/cuentas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"nombre\": \"Julia Luisa Roldos\",\r\n    \"genero\": \"F\",\r\n    \"edad\":25,\r\n    \"identificacion\": \"1105368889\",\r\n    \"direccion\": \"Calle98586\",\r\n    \"telefono\": \"555-1274\",\r\n    \"password\": \"022466789\",\r\n    \"clientId\":\"jluro\",\r\n    \"estado\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recuperar Cliente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes/jluro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"jluro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recuperar Clientes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/clientes/jluro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"clientes",
+						"jluro"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
