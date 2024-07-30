@@ -31,9 +31,9 @@ services:
 
   microservicio-cliente-persona:
     build:
-      context: ./microservicio-cliente-persona
+      context: ./microservicio-persona-cliente
       dockerfile: Dockerfile
-    container_name: microservicio-cliente-persona
+    container_name: microservicio-persona-cliente
     ports:
       - "8080:8080"
     environment:

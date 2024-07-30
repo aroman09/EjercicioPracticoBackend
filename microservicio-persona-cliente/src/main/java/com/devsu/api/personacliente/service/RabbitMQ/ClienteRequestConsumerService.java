@@ -34,13 +34,11 @@ public class ClienteRequestConsumerService {
 
             String clienteJson = objectMapper.writeValueAsString(cliente);
             clienteResponseService.sendClienteResponse(clienteJson);
-                ///clienteResponseService.sendClienteResponse(clienteJson);
-                // Enviar la respuesta a la cola de respuesta
-                //rabbitTemplate.convertAndSend(RabbitMQConfig.CLIENTE_RESPONSE_QUEUE, clienteJson);
-            System.out.println("Cliente encontrado y enviado a la cola de respuesta: " + clienteJson);
+  
+            log.info("Cliente encontrado y enviado a la cola de respuesta: " + clienteJson);
         } catch (Exception e) {
             clienteResponseService.sendClienteResponse("");
-            System.out.println("Error al procesar el cliente ID: " + e.getLocalizedMessage());
+            log.error("Error al procesar el cliente ID: " + e.getLocalizedMessage());
         }
     }
 }

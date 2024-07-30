@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-
-
+@Slf4j
 public class ClienteResponseProducerService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -16,6 +15,6 @@ public class ClienteResponseProducerService {
 
     public void sendClienteResponse(String response) {
         rabbitTemplate.convertAndSend(RabbitMQConfig.CLIENTE_RESPONSE_QUEUE, response);
-        System.out.println("Respuesta enviada a la cola de respuestas: " + response);
+        log.info("Respuesta enviada a la cola de respuestas: " + response);
     }
 }
